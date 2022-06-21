@@ -1,5 +1,5 @@
 import "./TripList.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface TripListModel {
   title: string;
@@ -12,11 +12,17 @@ const TripList: React.FC = () => {
   const [trips, setTrips] = useState<TripListModel[]>([]);
   const [url, setUrl] = useState<string>("http://localhost:3000/trips");
 
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => setTrips(json));
+  const fetchTrips = useCallback(async () => {
+    const response = await fetch(url);
+    const json = await response.json();
+    setTrips(json);
   }, [url]);
+
+  useEffect(() => {
+    fetchTrips();
+  }, [url, fetchTrips]);
+
+  console.log(trips);
 
   return (
     <div className="trip-list">
