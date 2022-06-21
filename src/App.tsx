@@ -9,3 +9,5 @@ function App() {
 }
 
 export default App;
+
+//npx json-server --watch ./data/db.json
