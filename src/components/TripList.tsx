@@ -10,7 +10,7 @@ export interface TripListModel {
 }
 
 const TripList: React.FC = () => {
-  const [url, setUrl] = useState<string>("http://localhost:3000/trips");
+  const [url, setUrl] = useState<string>("https://my-json-server.typicode.com/DariuszOkonski/react-tripago-v2-server/trips");
   const [data, isPending, error] = useFetch(url);
 
   return (
@@ -34,16 +34,16 @@ const TripList: React.FC = () => {
 
       <div className="filters">
         <button
-          onClick={() => setUrl("http://localhost:3000/trips?loc=europe")}
+          onClick={() => setUrl("https://my-json-server.typicode.com/DariuszOkonski/react-tripago-v2-server/trips?loc=europe")}
         >
           European Trips
         </button>
         <button
-          onClick={() => setUrl("http://localhost:3000/trips?loc=america")}
+          onClick={() => setUrl("https://my-json-server.typicode.com/DariuszOkonski/react-tripago-v2-server/trips?loc=america")}
         >
           American Trips
         </button>
-        <button onClick={() => setUrl("http://localhost:3000/trips")}>
+        <button onClick={() => setUrl("https://my-json-server.typicode.com/DariuszOkonski/react-tripago-v2-server/trips")}>
           All Trips
         </button>
       </div>
