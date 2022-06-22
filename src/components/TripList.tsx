@@ -1,7 +1,8 @@
 import "./TripList.css";
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
+import { useFetch } from "../hooks/useFetch";
 
-interface TripListModel {
+export interface TripListModel {
   title: string;
   price: string;
   id: string;
@@ -9,32 +10,21 @@ interface TripListModel {
 }
 
 const TripList: React.FC = () => {
-  const [trips, setTrips] = useState<TripListModel[]>([]);
   const [url, setUrl] = useState<string>("http://localhost:3000/trips");
-
-  const fetchTrips = useCallback(async () => {
-    const response = await fetch(url);
-    const json = await response.json();
-    setTrips(json);
-  }, [url]);
-
-  useEffect(() => {
-    fetchTrips();
-  }, [url, fetchTrips]);
-
-  console.log(trips);
+  const [data] = useFetch(url);
 
   return (
     <div className="trip-list">
       <h2>TripList</h2>
       <ul>
-        {trips.map((trip) => (
-          <li key={trip.id}>
-            <h3>{trip.title}</h3>
-            <p>{trip.price}</p>
-            <small>location: {trip.loc}</small>
-          </li>
-        ))}
+        {data &&
+          data.map((trip) => (
+            <li key={trip.id}>
+              <h3>{trip.title}</h3>
+              <p>{trip.price}</p>
+              <small>location: {trip.loc}</small>
+            </li>
+          ))}
       </ul>
       <div className="filters">
         <button
