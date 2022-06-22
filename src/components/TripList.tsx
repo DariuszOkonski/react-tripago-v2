@@ -11,13 +11,18 @@ export interface TripListModel {
 
 const TripList: React.FC = () => {
   const [url, setUrl] = useState<string>("http://localhost:3000/trips");
-  const [data] = useFetch(url);
+  const [data, isPending, error] = useFetch(url);
 
   return (
     <div className="trip-list">
       <h2>TripList</h2>
+
+      {error && <div>{error}</div>}
+      {isPending && !error && <div>Loading trips...</div>}
+
       <ul>
         {data &&
+          !isPending &&
           data.map((trip) => (
             <li key={trip.id}>
               <h3>{trip.title}</h3>
@@ -26,6 +31,7 @@ const TripList: React.FC = () => {
             </li>
           ))}
       </ul>
+
       <div className="filters">
         <button
           onClick={() => setUrl("http://localhost:3000/trips?loc=europe")}
