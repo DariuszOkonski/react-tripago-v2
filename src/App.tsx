@@ -7,8 +7,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => setShowTrips(false)}>hide trips</button>
-      {showTrips && <TripList />}
+      <TripList />
     </div>
   );
 }
